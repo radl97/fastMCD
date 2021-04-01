@@ -6,11 +6,13 @@ np.set_printoptions(precision=2, suppress=True)
 cap = cv2.VideoCapture('woman.mp4')
 mcd = MCDWrapper.MCDWrapper()
 isFirst = True
-while(cap.isOpened()):
+while cap.isOpened():
     ret, frame = cap.read()
+    if not ret:
+        break
     gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
     mask = np.zeros(gray.shape, np.uint8)
-    if (isFirst):
+    if isFirst:
         mcd.init(gray)
         isFirst = False
     else:
